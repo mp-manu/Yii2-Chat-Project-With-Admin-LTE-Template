@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <h4 class="text-gray text-center">Здесь пока нет сообщение</h4>
                 <?php else: ?>
                     <?php foreach ($message as $item): $class = ($item['user_id'] == $uid) ? 'right' : '' ?>
-                        <div class="direct-chat-messages <?= $class  ?>" style="height: unset!important;">
+                        <div class="direct-chat-messages <?= $class ?>" style="height: unset!important;">
                             <div class="direct-chat-info clearfix">
                                 <span class="direct-chat-name pull-<?= $class ?>"><?= $item['fio'] ?></span>
                                 <span class="direct-chat-timestamp pull-<?=$class?>>"><?= date('d.m.Y H:i', $item['created_at'])?></span>

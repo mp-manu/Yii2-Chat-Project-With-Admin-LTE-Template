@@ -43,17 +43,18 @@ class ChatController extends Controller
         if(Yii::$app->session->has('user_type') && Yii::$app->session->get('user_type') != 'admin'){
             $chats = $query->where(['chat_user.user_id' => Yii::$app->user->getId()])->asArray()->all();
 
-            foreach ($chats as $items){
-                $getSecondUser = ChatUser::find()
-                    ->select('*')
-                    ->innerJoin('user', 'chat_user.user_id=user.user_id')
-                    ->where(['chat_id' => $items['chat_id']])
-                    ->andWhere(['!=', 'chat_user.user_id', Yii::$app->user->getId()])->asArray()->one();
-                $secondUser[$items['chat_id']]['fio'] = $getSecondUser['fio'];
-                $secondUser[$items['chat_id']]['id'] = $getSecondUser['user_id'];
-            }
+
         }else{
             $chats = $query->asArray()->all();
+        }
+        foreach ($chats as $items){
+            $getSecondUser = ChatUser::find()
+                ->select('*')
+                ->innerJoin('user', 'chat_user.user_id=user.user_id')
+                ->where(['chat_id' => $items['chat_id']])
+                ->andWhere(['!=', 'chat_user.user_id', Yii::$app->user->getId()])->asArray()->one();
+            $secondUser[$items['chat_id']]['fio'] = $getSecondUser['fio'];
+            $secondUser[$items['chat_id']]['id'] = $getSecondUser['user_id'];
         }
 
         return $this->render('list', ['chats' => $chats, 'users' => $users, 'secondUser' => $secondUser]);
@@ -149,6 +150,7 @@ class ChatController extends Controller
             $chat_id = Chat::create($chatName);
             if(ChatUser::create($chat_id, $id) && ChatUser::create($chat_id, $uid)){
                 $messages = Message::find()
+                    ->select(['*'])
                     ->innerJoin('user', 'message.user_id=user.user_id')
                     ->where(['chat_id' => $chat_id])->asArray()->all();
                 return $this->render('chat', [
@@ -163,6 +165,7 @@ class ChatController extends Controller
             $chat_id = $chat['id'];
         }
         $messages = Message::find()
+            ->select(['*'])
             ->innerJoin('user', 'message.user_id=user.user_id')
             ->where(['chat_id' => $chat_id])->asArray()->all();
         return $this->render('chat', [
