@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>
-            <?php if(Yii::$app->user->can('/administrator/default/index')): ?>
+            <?php if(Yii::$app->user->can('/chat/send-message')): ?>
             <!-- /.box-body -->
             <div class="box-footer">
                 <?php $form = \yii\widgets\ActiveForm::begin(['action' => 'send-message']) ?>

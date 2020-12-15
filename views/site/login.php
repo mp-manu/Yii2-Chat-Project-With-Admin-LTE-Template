@@ -6,7 +6,7 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \common\models\LoginForm */
 
-$this->title = 'Sign In';
+$this->title = 'Вход';
 
 $fieldOptions1 = [
     'options' => ['class' => 'form-group has-feedback'],
@@ -49,14 +49,10 @@ $fieldOptions2 = [
             </div>
             <!-- /.col -->
         </div>
-
-
         <?php ActiveForm::end(); ?>
-
-
-        <a href="#">I forgot my password</a><br>
-        <a href="register.html" class="text-center">Register a new membership</a>
-
+        <h5><b>Администратор:</b> <br>Логин: admin Пароль: admin123</h5>
+        <h5><b>Пользователь:</b> <br>Логин: user Пароль: user123</h5>
+        <h5><b>Гость:</b> <br>Логин: guest Пароль: guest123</h5>
     </div>
     <!-- /.login-box-body -->
 </div><!-- /.login-box -->

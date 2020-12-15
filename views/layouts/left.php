@@ -31,19 +31,19 @@
                 'items' => [
                     ['label' => 'Меню', 'options' => ['class' => 'header']],
                     ['label' => 'Главная страница', 'icon' => '', 'url' => ['/']],
-                    ['label' => 'Чат', 'icon' => '', 'url' => ['/chat/list']],
-                    ['label' => 'Пользователи', 'icon' => '', 'url' => ['/user']],
-                    ['label' => 'Некорректные сообщение', 'icon' => '', 'url' => ['/page/index']],
+                    ['label' => 'Чат', 'icon' => '', 'url' => ['/chat/list'], 'visible' => Yii::$app->user->can('/chat/list')],
+                    ['label' => 'Пользователи', 'icon' => '', 'url' => ['/user'], 'visible' => Yii::$app->user->can('/user/index')],
+                    ['label' => 'Некорректные сообщение', 'icon' => '', 'url' => ['/messages/incorrect'], 'visible' => Yii::$app->user->can('/message/incorrect')],
                     [
                         'label' => 'RBAC',
                         'icon' => 'cogs',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'Assignments', 'icon' => 'cogs', 'url' => ['/rbac'],],
-                            ['label' => 'Roles', 'icon' => 'cogs', 'url' => ['/rbac/role'],],
-                            ['label' => 'Routes', 'icon' => 'cogs', 'url' => ['/rbac/route'],],
-                            ['label' => 'Permission', 'icon' => 'cogs', 'url' => ['/rbac/permission'],],
-                        ],
+                            ['label' => 'Assignments', 'icon' => 'cogs', 'url' => ['/rbac'], 'visible' => Yii::$app->user->can('/rbac/*')],
+                            ['label' => 'Roles', 'icon' => 'cogs', 'url' => ['/rbac/role'], 'visible' => Yii::$app->user->can('/rbac/*')],
+                            ['label' => 'Routes', 'icon' => 'cogs', 'url' => ['/rbac/route'], 'visible' => Yii::$app->user->can('/rbac/*')],
+                            ['label' => 'Permission', 'icon' => 'cogs', 'url' => ['/rbac/permission'], 'visible' => Yii::$app->user->can('/rbac/*')],
+                        ], 'visible' => Yii::$app->user->can('/rbac/*')
                     ],
                     ['label' => 'Выход', 'icon' => '', 'url' => ['/site/logout']],
                 ],
