@@ -44,6 +44,17 @@ class MessageController extends Controller
         ]);
     }
 
+    public function actionIncorrect()
+    {
+        $searchModel = new MessageSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andWhere('message.status = 0');
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Displays a single Message model.
      * @param integer $id
@@ -93,6 +104,14 @@ class MessageController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+    public function actionSetIncorrect($id, $url){
+        $model = Message::updateAll(['status' => 0], ['id' => $id]);
+        return $this->redirect(base64_decode($url));
+    }
+    public function actionSetCorrect($id, $url){
+        $model = Message::updateAll(['status' => 1], ['id' => $id]);
+        return $this->redirect(base64_decode($url));
     }
 
     /**

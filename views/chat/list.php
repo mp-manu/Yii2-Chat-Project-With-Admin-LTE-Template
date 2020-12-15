@@ -66,10 +66,17 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?php if(!empty($chats)): ?>
                                 <?php foreach($chats as $item): ?>
                                     <tr>
-                                        <td><div class="icheckbox_flat-blue" aria-checked="false" aria-disabled="false" style="position: relative;">
-                                                <input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div></td>
+                                        <td>
+                                            <div class="icheckbox_flat-blue" aria-checked="false" aria-disabled="false" style="position: relative;">
+                                                <input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                                            </div>
+                                        </td>
                                         <td class="mailbox-star"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>
+                                        <?php if(Yii::$app->session->get('user_type') == 'admin'): ?>
+                                            <td class="mailbox-name"><a href="/chat/show-chat?chat_id=<?= $item['chat_id'] ?>"><?= $secondUser[$item['chat_id']]['fio'] ?></a></td>
+                                        <?php else: ?>
                                         <td class="mailbox-name"><a href="/chat/get-chat?id=<?= $secondUser[$item['chat_id']]['id'] ?>"><?= $secondUser[$item['chat_id']]['fio'] ?></a></td>
+                                        <?php endif; ?>
                                         <td class="mailbox-date"><?= rand(1,59) ?> mins ago</td>
                                     </tr>
                                 <?php endforeach; ?>

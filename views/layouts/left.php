@@ -33,7 +33,7 @@
                     ['label' => 'Главная страница', 'icon' => '', 'url' => ['/']],
                     ['label' => 'Чат', 'icon' => '', 'url' => ['/chat/list'], 'visible' => Yii::$app->user->can('/chat/list')],
                     ['label' => 'Пользователи', 'icon' => '', 'url' => ['/user'], 'visible' => Yii::$app->user->can('/user/index')],
-                    ['label' => 'Некорректные сообщение', 'icon' => '', 'url' => ['/messages/incorrect'], 'visible' => Yii::$app->user->can('/message/incorrect')],
+                    ['label' => 'Некорректные сообщение', 'icon' => '', 'url' => ['/message/incorrect'], 'visible' => Yii::$app->user->can('/message/incorrect')],
                     [
                         'label' => 'RBAC',
                         'icon' => 'cogs',

@@ -7,16 +7,12 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\MessageSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Messages';
+$this->title = 'Некорректные сообщение';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="message-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Message', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -25,12 +21,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'chat_id',
-            'user_id',
-            'message:ntext',
-            'status',
+            ['attribute' => 'message'],
+            [
+                'attribute' => 'status',
+                'format' => 'html',
+                'value' => function($model){
+                    $link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                    return ($model->status == 0) ? '<a href="/message/set-correct?id='.$model->id.'&url='.base64_encode($link).'">Некорректно (Отменить)</a>' : '<a href="#">Корректно</a>';
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
