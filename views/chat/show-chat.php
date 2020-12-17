@@ -30,16 +30,17 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
                             <img class="direct-chat-img" src="/uploads/img/user1-128x128.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
                             <?php $style = ($item['status'] == 0) ? 'style="background: orange"' : '' ?>
+                            <?php $style = ($item['user_type'] == 'admin' && $item['status'] == 1) ? 'style="background: green;color:#FFFFFF"' : '' ?>
                             
                                 <div class="direct-chat-text" <?= $style ?>>
                                     <?= $item['message'] ?>
                                     <?php if(Yii::$app->user->can('/message/set-correct')): ?>
                                     <?php $link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>
-                                    <?php if($item['status'] == 0): ?>
-                                        <br><span ><a style="font-size: 12px; color: red!important;" href="/message/set-correct?id=<?= $item['id'] ?>&url=<?= base64_encode($link) ?>">Сообщение некорректно (отменить)</a> </span>
-                                    <?php else: ?>
-                                        <br><span ><a style="font-size: 12px; color: red!important;" href="/message/set-incorrect?id=<?= $item['id'] ?>&url=<?= base64_encode($link) ?>">Пометить как некорректно</a> </span>
-                                    <?php endif; ?>
+                                        <?php if($item['status'] == 0): ?>
+                                            <br><span ><a style="font-size: 12px; color: red!important;" href="/message/set-correct?id=<?= $item['id'] ?>&url=<?= base64_encode($link) ?>">Сообщение некорректно (отменить)</a> </span>
+                                        <?php else: ?>    
+                                            <br><span ><a style="font-size: 12px; color: red!important;" href="/message/set-incorrect?id=<?= $item['id'] ?>&url=<?= base64_encode($link) ?>">Пометить как некорректно</a> </span>
+                                        <?php endif; ?>
                                     <?php endif; ?>
                                 </div>
                             

@@ -25,6 +25,7 @@
             </div>
         </form>
         <?php $logoutText = (Yii::$app->user->isGuest) ? 'Вход' : 'Выход' ?>
+        <?php $logoutLink = (Yii::$app->user->isGuest) ? 'login' : 'logout' ?>
         <!-- /.search form -->
         <?= dmstr\widgets\Menu::widget(
             [
@@ -46,7 +47,7 @@
                             ['label' => 'Permission', 'icon' => 'cogs', 'url' => ['/rbac/permission'], 'visible' => Yii::$app->user->can('/rbac/*')],
                         ], 'visible' => Yii::$app->user->can('/rbac/*')
                     ],
-                    ['label' => $logoutText, 'icon' => '', 'url' => ['/site/logout']],
+                    ['label' => $logoutText, 'icon' => '', 'url' => ['/site/'.$logoutLink]],
                 ],
             ]
         ) ?>
