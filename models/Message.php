@@ -32,7 +32,7 @@ class Message extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['chat_id', 'user_id', 'message'], 'required'],
+            [['user_id', 'message'], 'required'],
             [['chat_id', 'user_id', 'status'], 'integer'],
             [['message'], 'string'],
             [['chat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Chat::className(), 'targetAttribute' => ['chat_id' => 'id']],

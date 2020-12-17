@@ -185,34 +185,29 @@ class ChatController extends Controller
                 ->andWhere(['!=', 'user_id', Yii::$app->user->getId()])
                 ->asArray()
                 ->one();
-            return $this->redirect(['/chat/get-chat', 'id' => $chat['user_id']]);
+            return $this->redirect(['/chat/get-chat']);
         }
     }
     public function actionSendMessageAdmin(){
         $model = new Message();
         if($model->load(Yii::$app->request->post())){
             $model->created_at = time();
+            $model->user_id = Yii::$app->user->getId();
             $model->save();
-            $chat = ChatUser::find()
-                ->where(['chat_id' => $model->chat_id])
-                ->andWhere(['!=', 'user_id', Yii::$app->user->getId()])
-                ->asArray()
-                ->one();
-            return $this->redirect(['/chat/show-chat', 'chat_id' => $model->chat_id]);
+            return $this->redirect(['/chat/show-chat']);
         }
     }
 
-    public function actionShowChat($chat_id){
+    public function actionShowChat(){
         $model = new Message();
         $messages = Message::find()
             ->select(['*'])
             ->innerJoin('user', 'user.user_id=message.user_id')
-            ->where(['message.chat_id' => $chat_id])->orderBy('message.created_at')
+            ->orderBy('message.created_at')
             ->asArray()->all();
         return $this->render('show-chat', [
             'message' => $messages,
             'model' => $model,
-            'chat_id' => $chat_id,
             'user_id' => Yii::$app->user->getId()
         ]);
     }

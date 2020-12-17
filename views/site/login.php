@@ -52,7 +52,6 @@ $fieldOptions2 = [
         <?php ActiveForm::end(); ?>
         <h5><b>Администратор:</b> <br>Логин: admin Пароль: admin123</h5>
         <h5><b>Пользователь:</b> <br>Логин: user Пароль: user123</h5>
-        <h5><b>Гость:</b> <br>Логин: guest Пароль: guest123</h5>
     </div>
     <!-- /.login-box-body -->
 </div><!-- /.login-box -->

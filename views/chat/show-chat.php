@@ -1,5 +1,5 @@
 <?php
-$this->title = 'Читать чат';
+$this->title = 'Чат';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="row">
@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php if(empty($message)): ?>
                     <h4 class="text-gray text-center">Здесь пока нет сообщение</h4>
                 <?php else: ?>
-                    <?php $uid=$message[0]['user_id']; foreach ($message as $item): $class = ($item['user_id'] == $uid) ? 'right' : '' ?>
+                    <?php  foreach ($message as $item): $class = ($item['user_id'] == $user_id) ? 'right' : '' ?>
                         <div class="direct-chat-messages <?= $class ?>" style="height: unset!important;">
                             <div class="direct-chat-info clearfix">
                                 <span class="direct-chat-name pull-<?= $class ?>"><?= $item['fio'] ?></span>
@@ -30,16 +30,19 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
                             <img class="direct-chat-img" src="/uploads/img/user1-128x128.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
                             <?php $style = ($item['status'] == 0) ? 'style="background: orange"' : '' ?>
-                            <div class="direct-chat-text" <?= $style ?>>
-                                <?= $item['message'] ?>
-                                <?php $link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>
-                                <?php if($item['status'] == 0): ?>
-                                    <br><span ><a style="font-size: 12px; color: red!important;" href="/message/set-correct?id=<?= $item['id'] ?>&url=<?= base64_encode($link) ?>">Сообщение некорректно (отменить)</a> </span>
-                                <?php else: ?>
-                                    <br><span ><a style="font-size: 12px; color: red!important;" href="/message/set-incorrect?id=<?= $item['id'] ?>&url=<?= base64_encode($link) ?>">Пометить как некорректно</a> </span>
-                                <?php endif; ?>
-
-                            </div>
+                            
+                                <div class="direct-chat-text" <?= $style ?>>
+                                    <?= $item['message'] ?>
+                                    <?php if(Yii::$app->user->can('/message/set-correct')): ?>
+                                    <?php $link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>
+                                    <?php if($item['status'] == 0): ?>
+                                        <br><span ><a style="font-size: 12px; color: red!important;" href="/message/set-correct?id=<?= $item['id'] ?>&url=<?= base64_encode($link) ?>">Сообщение некорректно (отменить)</a> </span>
+                                    <?php else: ?>
+                                        <br><span ><a style="font-size: 12px; color: red!important;" href="/message/set-incorrect?id=<?= $item['id'] ?>&url=<?= base64_encode($link) ?>">Пометить как некорректно</a> </span>
+                                    <?php endif; ?>
+                                    <?php endif; ?>
+                                </div>
+                            
                         </div>
                     <?php endforeach; ?>
                 <?php endif; ?>

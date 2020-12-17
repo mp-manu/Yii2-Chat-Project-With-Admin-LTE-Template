@@ -9,6 +9,7 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language' => 'ru-RU',
+    'defaultRoute' => 'chat/show-chat',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -74,9 +75,10 @@ $config = [
     'as access' => [
         'class' => AccessControl::class,
         'allowActions' => [
-//            '*',
             'site/login',
             'site/logout',
+            'chat/show-chat',
+            'site/index'
         ]
     ],
 ];

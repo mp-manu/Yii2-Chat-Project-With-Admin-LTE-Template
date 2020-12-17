@@ -24,6 +24,7 @@
               </span>
             </div>
         </form>
+        <?php $logoutText = (Yii::$app->user->isGuest) ? 'Вход' : 'Выход' ?>
         <!-- /.search form -->
         <?= dmstr\widgets\Menu::widget(
             [
@@ -31,7 +32,7 @@
                 'items' => [
                     ['label' => 'Меню', 'options' => ['class' => 'header']],
                     ['label' => 'Главная страница', 'icon' => '', 'url' => ['/']],
-                    ['label' => 'Чат', 'icon' => '', 'url' => ['/chat/list'], 'visible' => Yii::$app->user->can('/chat/list')],
+                    ['label' => 'Чат', 'icon' => '', 'url' => ['/chat/show-chat'], 'visible' => Yii::$app->user->can('/chat/list')],
                     ['label' => 'Пользователи', 'icon' => '', 'url' => ['/user'], 'visible' => Yii::$app->user->can('/user/index')],
                     ['label' => 'Некорректные сообщение', 'icon' => '', 'url' => ['/message/incorrect'], 'visible' => Yii::$app->user->can('/message/incorrect')],
                     [
@@ -45,7 +46,7 @@
                             ['label' => 'Permission', 'icon' => 'cogs', 'url' => ['/rbac/permission'], 'visible' => Yii::$app->user->can('/rbac/*')],
                         ], 'visible' => Yii::$app->user->can('/rbac/*')
                     ],
-                    ['label' => 'Выход', 'icon' => '', 'url' => ['/site/logout']],
+                    ['label' => $logoutText, 'icon' => '', 'url' => ['/site/logout']],
                 ],
             ]
         ) ?>
